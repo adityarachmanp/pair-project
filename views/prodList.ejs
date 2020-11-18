@@ -1,0 +1,32 @@
+<%- include('partial/head')  %>
+<%- include('partial/jumbotron')  %>
+
+<a href="/product/add"></a>
+
+<div>
+
+<table border="1px">
+
+    <% prod.forEach(element => { %>
+
+        <tr>
+            <td><img src="<%= element.picture  %> " alt="<%= element.name  %> " style="width:104px;height:142px;"></td>
+            <td>
+                Nama product : <%= element.name  %> <br>
+                Harga: <%= element.price  %> <br>
+                Stok : <%= element.stock  %><br>
+                Category : <%= element.category %>  <br><br>
+                <button type="button">Beli</button>
+                <a href="#"> info lebih lanjut</a>
+            
+            </td>
+        </tr>
+        
+   <%  }); %> 
+
+</table>
+
+</div>
+
+
+<%- include('partial/foot')  %> 

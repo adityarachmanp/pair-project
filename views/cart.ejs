@@ -1,0 +1,24 @@
+<%- include('partial/head') %>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Total Price</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% data.Products.forEach(cust =>{ %>
+            <tr>
+                <td>cust.name</td>
+                <td>cust.category</td>
+                <td>cust.price</td>                
+            </tr>
+        <% }) %> 
+    </tbody>
+</table>
+
+<%- include('partial/foot') %> 
