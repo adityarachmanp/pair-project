@@ -1,6 +1,6 @@
 <%- include('partial/head') %>
 
-<table>
+<table border="1">
     <thead>
         <tr>
             <th>Name</th>
@@ -12,9 +12,10 @@
     <tbody>
         <% customer.forEach(cust =>{ %>
             <tr>
-                <td>cust.name</td>
-                <td>cust.email</td>
-                <td>cust.address</td>                
+                <td><%= cust.name  %> </td>
+                <td><%= cust.email  %> </td>
+                <td><%= cust.address  %> </td>
+              
             </tr>
         <% }) %> 
     </tbody>

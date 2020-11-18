@@ -1,4 +1,6 @@
 'use strict';
+const {encryptPass} = require('../helper/generatePass')
+
 const {
   Model
 } = require('sequelize');
@@ -15,12 +17,62 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Customer.init({
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    address: DataTypes.STRING
+    name: {
+      type : DataTypes.STRING,
+      validate: {
+        notEmpty : {
+          msg : 'Silahkan masukkan Nama anda'
+        }
+
+      }
+
+    },
+    email: {
+      type : DataTypes.STRING,
+      validate : {
+        isEmail : {
+          msg: 'Silahkan Masukkan Email anda'
+        }
+      }
+    } ,
+    address: {
+      type : DataTypes.STRING,
+      validate : {
+        isEnough(value){
+          if(value.length < 15 ){
+            throw new Error('Alamat Minimal 15 Karakter ')
+          }
+        }
+      }
+    },
+    userName : {
+      type : DataTypes.STRING,
+      validate : {
+        notEmpty : {
+          msg : 'SIlahkan isi User Name anda'
+        }
+      }
+    },
+    password: {
+      type : DataTypes.STRING,
+      validate : {
+        notEmpty : {
+          msg : 'Silahkan isi Password anda'
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Customer',
   });
+
+  //Hook
+  Customer.beforeCreate( (instance,option) =>{
+    console.log('==============Encripting=============')
+    instance.password = encryptPass( instance.password)
+    console.log('==============Encripted=============')
+
+  } )
+
   return Customer;
 };
