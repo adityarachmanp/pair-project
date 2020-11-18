@@ -1,0 +1,23 @@
+<%- include('partial/head') %>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% customer.forEach(cust =>{ %>
+            <tr>
+                <td>cust.name</td>
+                <td>cust.email</td>
+                <td>cust.address</td>                
+            </tr>
+        <% }) %> 
+    </tbody>
+</table>
+
+<%- include('partial/foot') %> 
