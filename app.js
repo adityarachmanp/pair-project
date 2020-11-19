@@ -1,8 +1,10 @@
 const express = require('express')
 const app = express()
-const port = 3000
+// const port = 3000
+const port = process.env.PORT || 4000
 const router = require('./routers/routes.js')
 const session = require('express-session')
+const { prototype } = require('chart.js')
 
 
 app.set('view engine', 'ejs')
