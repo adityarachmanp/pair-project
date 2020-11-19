@@ -217,7 +217,9 @@ class HomeController {
             .then(result =>{
                 let name = null 
                 console.log('===========GEt product==========')
-
+                if(req.session.name){
+                    name = req.session.name
+                }
                 // res.send(result)
                 res.render('prodList', {prod :result, logout: null , name:name, Product})
             })

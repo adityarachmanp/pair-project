@@ -22,10 +22,6 @@ module.exports = (sequelize, DataTypes) => {
        return `Rp ${currency}`
     }
 
-    static coba(text){
-      return `${text}`
-    }
-
   };
   Product.init({
     name: DataTypes.STRING,
