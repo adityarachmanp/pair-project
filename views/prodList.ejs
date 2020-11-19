@@ -1,7 +1,6 @@
 <%- include('partial/head')  %>
 
 
-
 <div class="container">
     <div class="jumbotron">
       <h1>Selamat Datang <%= name  %> </h1>
@@ -13,8 +12,8 @@
    <h1>Halaman Ini Hanya bisa di akses Oleh Pengguna</h1>
 <% } %> 
 <div>
-
-<% if(prod) { %>
+     
+<% if(prod) { %>    
 
     <table border="1px">
     
@@ -24,7 +23,7 @@
                 <td><img src="<%= element.picture  %> " alt="<%= element.name  %> " style="width:104px;height:142px;"></td>
                 <td>
                     Nama product : <%= element.name  %> <br>
-                    Harga: <%= element.price  %> <br>
+                    Harga: <%= element.changePrice(element.price)  %> <br>
                     Category : <%= element.category %>  <br><br>
                     <button type="button"><a href="/addCart/<%= element.id  %> "> Tambahkan Ke Keranjang</a> </button>
                     <a href="/product/<%= element.id %>"> info lebih lanjut</a>

@@ -1,4 +1,7 @@
 'use strict';
+
+const Chart = require("chart.js")
+
 const {
   Model
 } = require('sequelize');
@@ -13,6 +16,16 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Product.belongsToMany(models.Customer , {through : "ProductCustomer"})
     }
+
+    changePrice(number){
+       let currency = number.toLocaleString('id', {style:'currency',currency:'IDR'}).split('IDR')[1]
+       return `Rp ${currency}`
+    }
+
+    static coba(text){
+      return `${text}`
+    }
+
   };
   Product.init({
     name: DataTypes.STRING,

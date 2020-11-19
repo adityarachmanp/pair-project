@@ -1,7 +1,8 @@
 function autentikasi(req,res,next){
 
-    if (req.session.name){
+    if (req.session.custId){
         console.log('===========LogIn===========')
+        console.log(req.session.custId)
         console.log(req.session.name)
         next()
     }

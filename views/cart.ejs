@@ -2,22 +2,25 @@
 
 
 <h1> Keranjang </h1>
-<table border="1px"> 
-    <% data.Products.forEach(product =>{ %>
-        <tr>
-            <td><img src="<%= product.picture  %> " alt="<%= product.name  %> " style="width:104px;height:142px;"></td>
-            <td>
-                Nama : <%= product.name  %> <br>
-                Harga : <%= product.harga  %> <br>
-                Stock : <%= product.stock  %> <br>
-                Deskripsi : Seharusnya ada deskripsi <br>
-            </td>
-            <td> 
-                <button>CheckOut</button>
-                <button> <a href="/cart/delete/<%= product.id %> ">Delete</a></button>
-            </td>
-        </tr>
-    <% }) %> 
+<table border="1">
+    <% data.forEach(product =>{ %>
+    <tr>
+
+        <td>
+            <img src="<%= product.Product.picture %> " alt="<%= product.Product.name  %> " style="width:104px;height:142px;">
+        </td><br>
+        <td>
+            Nama : <%= product.Product.name  %> <br>
+            Harga : <%= product.Product.changePrice(product.Product.price)  %> <br>
+            Deskripsi : Seharusnya ada deskripsi <br>
+        </td><br>
+        <td> <br>
+            <button>CheckOut</button><br>
+            <button> <a href="/cart/delete/<%= product.ProductId %> ">Delete</a></button>
+        </td>
+    </tr>
+
+   <%  }) %> 
 </table>
 
 

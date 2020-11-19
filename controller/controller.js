@@ -1,7 +1,8 @@
 const { json } = require('express');
-const {Customer,Product, ProductCustomer}  = require('../models/index.js')
+const {Customer,Product, ProductCustomer, sequelize}  = require('../models/index.js')
 const {getPass} = require('../helper/generatePass')
-const { Op } = require("sequelize")
+const { Op } = require("sequelize");
+const product = require('../models/product.js');
 
 class CustomerController {
 
@@ -83,6 +84,7 @@ class CustomerController {
             console.log(req.session)
             if(!req.session.name && getPass(req.body.password,result.password)){
                 console.log('============Cek Session=========')
+                req.session.custId = result.id
                 req.session.name = result.name
                 console.log(req.session)
                 res.redirect('/')
@@ -109,17 +111,18 @@ class CustomerController {
     }
 
     static cart(req,res){
-        const name = req.session.name
-        // const name = 'hafis'
-        Customer.findOne({
-            where :{
-                name : name
+        const custId = req.session.custId
+
+        ProductCustomer.findAll({
+        where :{
+                CustomerId : custId
             },
-            include : Product
+            include : [Product]
         })
         .then( result =>{
-            // res.render('cart', {data:result})
-            res.send(result)
+            res.render('cart', {data:result})
+            console.log(result.id)
+            // res.send(result)
         })
         .catch( err =>{
             console.log('===========ERROR Cart========')
@@ -133,25 +136,15 @@ class CustomerController {
         console.log(prodId)
         let name = req.session.name
         console.log(name)
-        let custId = null
+        let custId = req.session.custId
 
-        Customer.findOne( {
-            where : {
-                name
+        ProductCustomer.destroy({
+            where :{
+                [Op.and] : [{ProductId: prodId},{CustomerId : custId} ]
             }
-        }).then( result =>{
-            custId = result.id
-            console.log('=====================DELETE From cart=================')
-            console.log(result)
-            return ProductCustomer.destroy({
-                where: {
-                    [Op.and] : [{ProductId: prodId},{CustomerId : custId} ]
-                }
-            })
-        }).then( result =>{
-            console.log('=============Delete Cart========')
+        }).then(result =>{
             res.redirect('/cart')
-        }).catch (err =>{
+        }).catch(err=>{
             res.send(err)
         })
     }
@@ -218,17 +211,15 @@ class ProductController {
 }
 
 class HomeController {
-
     static getProduct(req,res){
+
         Product.findAll()
             .then(result =>{
                 let name = null 
                 console.log('===========GEt product==========')
-                console.log(req.session.name)
-                if(req.session.name){
-                    name = req.session.name
-                }
-                res.render('prodList', {prod :result, logout: null , name:name})
+
+                // res.send(result)
+                res.render('prodList', {prod :result, logout: null , name:name, Product})
             })
             .catch(err =>{
                 res.send(err)
