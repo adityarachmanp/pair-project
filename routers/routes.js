@@ -15,7 +15,7 @@ router.get('/', HomeController.getProduct) // menampilkan semua barang yang diju
 
 router.get('/product/:id', autentikasi ,ProductController.getInfo)
 
-
+router.get('/addCart/:id',autentikasi, ProductController.addCart)
 //account
 
 router.get('/register', CustomerController.registerForm)
@@ -24,10 +24,12 @@ router.post('/register', CustomerController.addNewCust)
 router.get('/login', CustomerController.loginForm)
 router.post('/login', CustomerController.login)
 
+router.get('/logout', autentikasi, CustomerController.logout)
+
 router.get('/profile',autentikasi, CustomerController.getData)
 
 router.get('/cart', autentikasi , CustomerController.cart)
-
+router.get('/cart/delete/:id',autentikasi,CustomerController.deleteFromCart)
 
 
 
