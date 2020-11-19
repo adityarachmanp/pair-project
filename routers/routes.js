@@ -27,6 +27,9 @@ router.post('/login', CustomerController.login)
 router.get('/logout', autentikasi, CustomerController.logout)
 
 router.get('/profile',autentikasi, CustomerController.getData)
+router.get('/profile/edit/:id', CustomerController.editData)
+router.post('/profile/edit/:id', CustomerController.posteditdata)
+
 
 router.get('/cart', autentikasi , CustomerController.cart)
 router.get('/cart/delete/:id',autentikasi,CustomerController.deleteFromCart)

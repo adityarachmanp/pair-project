@@ -22,6 +22,59 @@ class CustomerController {
             })
     }
 
+    static editData(req, res) {
+        const id = req.params.id
+        Customer.findByPk(id)
+        .then (result =>{
+            res.render("editcustomer" ,{result})
+            // res.send(result)
+        }).catch(err =>{
+            res.send(err)
+        })
+    }
+
+    static posteditdata(req, res) {
+        let result= {
+            name : req.body.name,
+            email : req.body.email,
+            address : req.body.address,
+            userName : req.body.userName,
+            password : req.body.password
+       
+        } 
+        const id = req.params.id
+        Customer.update(result, {where : {id:id}})
+        .then(result =>{
+          res.redirect('/')
+         })
+  .catch(err=>{
+    res.send(err)
+    })
+    }
+
+    static postAddprofile(req, res) {
+        Model.sendShirtToDb( req.body, (err, validation) => {
+            if (err) {
+                res.render('fatalError', { err })
+            } else if (validation) {
+                res.redirect(`/shirts/add?error=${validation}`) // Gagal Add
+            } else {
+                res.redirect(`/?status=Berhasil menambahkan data baru`) // Berhasil add
+            }
+        })
+    }
+
+
+    static removeprofile(req, res) {
+        CustomerItem.destroy({ where: { ItemId: req.params.id } })
+          .then(() => {
+            res.redirect('/carts')
+          })
+          .catch(error => {
+            res.render('error', { error })
+          })
+      }
+
     static registerForm(req,res){
         let error = null ;
         if(req.query.error){
