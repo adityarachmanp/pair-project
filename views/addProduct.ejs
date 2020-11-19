@@ -1,0 +1,22 @@
+<%- include('partial/head')  %> 
+
+<h1>Tambahkan Product Baru</h1><br><br>
+
+
+<form action="/product/add" method="POST">
+    <h4>Nama Product</h4><br>
+    <input type="text" name="name" ><br>
+    <h4>Stock</h4>
+    <input type="number" name="stock" ><br>
+    <h4>Category</h4>
+    <input type="text" name="category"><br>
+    <h4>Harga</h4>
+    <input type="number" name="price" id=""><br>
+    <h4>Gambar</h4>
+    <input type="text" name="picture" id=""><br>
+
+    <input type="submit" value="Tambahkan">
+</form>
+
+
+<%- include('partial/foot')  %> 

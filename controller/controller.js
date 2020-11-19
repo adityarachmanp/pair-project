@@ -16,6 +16,8 @@ class CustomerController {
             }
         })
             .then(result =>{
+                console.log('================customer data======')
+                console.log(result)
                 res.render('customerlist', {customer : result})
             })
             .catch(err =>{
@@ -148,6 +150,55 @@ class CustomerController {
             res.send(err)
         })
     }
+
+    static editData(req, res) {
+        const id = req.params.id
+        Customer.findByPk(id)
+        .then (result =>{
+            res.render("editcustomer" ,{result})
+            // res.send(result)
+        }).catch(err =>{
+            res.send(err)
+        })
+    }
+
+    static posteditdata(req, res) {
+        let result= {
+            name : req.body.name,
+            email : req.body.email,
+            address : req.body.address,
+            userName : req.body.userName,
+            password : req.body.password
+       
+        } 
+        const id = req.params.id
+        Customer.update(result, {
+            where : {
+                id:id
+            },
+            individualHooks: true
+        })
+        .then(result =>{
+          res.redirect('/')
+         })
+        .catch(err=>{
+            res.send(err)
+            })
+    }
+
+    static deleteAccount(req,res){
+        const id = req.params.id
+
+        Customer.destroy({
+            where : {
+                id
+            }
+        }).then(result =>{
+            res.redirect('/')
+        }).catch(err =>{
+            res.send(err)
+        })
+    }
 }
 
 
@@ -208,6 +259,28 @@ class ProductController {
         })
     }
 
+    static addProductForm(req,res){
+        res.render('addProduct')
+    }
+
+    static addProduct(req,res){
+        const newProduct = {
+            name : req.body.name,
+            price : req.body.price,
+            stock : req.body.stock,
+            category : req.body.category,
+            picture : req.body.picture,
+        }
+
+        Product.create(newProduct)
+            .then(result =>{
+                res.redirect('/')
+            })
+            .catch(err =>{
+                res.send(err)
+            })
+    }
+
 }
 
 class HomeController {
@@ -220,8 +293,33 @@ class HomeController {
                 if(req.session.name){
                     name = req.session.name
                 }
-                // res.send(result)
-                res.render('prodList', {prod :result, logout: null , name:name, Product})
+
+                let empt = {}
+                for (let i = 0 ; i< result.length ; i++){
+                    let category = result[i].category
+                    if(!empt[category]){
+                        empt[category] = 1
+                    }else {
+                        empt[category]++
+                    }
+                }
+                console.log('===================get the data=========')
+                console.log(empt)
+                let labels= []
+                console.log('=======here=====')
+                for(let key in empt){
+                    console.log('=======here=====')
+                    console.log(key)
+                    labels.push(key)
+                }
+                let data = []
+
+                for (let key in empt){
+                    data.push(empt[key])
+                }
+                console.log(labels)
+                console.log(data)
+                res.render('prodList', {prod :result, logout: null , name:name, labels:labels  ,data:data})
             })
             .catch(err =>{
                 res.send(err)

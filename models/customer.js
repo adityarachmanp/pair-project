@@ -74,5 +74,11 @@ module.exports = (sequelize, DataTypes) => {
 
   } )
 
+  Customer.beforeUpdate((instance,opt) =>{
+    console.log('==============Encripting=============')
+    instance.password = encryptPass( instance.password)
+    console.log('==============Encripted=============')
+  })
+
   return Customer;
 };

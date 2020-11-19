@@ -12,6 +12,9 @@ router.get('/', HomeController.getProduct) // menampilkan semua barang yang diju
 
 //product 
 
+router.get('/product/add',autentikasi ,ProductController.addProductForm)
+router.post('/product/add',ProductController.addProduct)
+
 
 router.get('/product/:id', autentikasi ,ProductController.getInfo)
 
@@ -31,6 +34,7 @@ router.get('/profile',autentikasi, CustomerController.getData)
 router.get('/cart', autentikasi , CustomerController.cart)
 router.get('/cart/delete/:id',autentikasi,CustomerController.deleteFromCart)
 
-
+router.get('/profile/edit/:id', CustomerController.editData)
+router.post('/profile/edit/:id', CustomerController.posteditdata)
 
 module.exports = router

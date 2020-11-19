@@ -1,21 +1,28 @@
 <%- include('partial/head') %>
 
+<p><%= customer.id %> </p>
+
 <table border="1">
     <thead>
         <tr>
             <th>Name</th>
             <th>Email</th>
             <th>Address</th>
+            <th>Action</th>
         </tr>
     </thead>
-
+    
     <tbody>
         <% customer.forEach(cust =>{ %>
             <tr>
                 <td><%= cust.name  %> </td>
                 <td><%= cust.email  %> </td>
                 <td><%= cust.address  %> </td>
-              
+                <td>
+                <a href="/profile/edit/<%= cust.id %>">edit data</a> | 
+                <a href="profile/delete/<%= cust.id  %>" onclick="return confirm('yakin ingin menghapus akun anda')" >Delete</a>
+                </td>
+                
             </tr>
         <% }) %> 
     </tbody>
