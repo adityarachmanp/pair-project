@@ -307,20 +307,13 @@ class HomeController {
                 if(req.session.name){
                     name = req.session.name
                 }
-
-                let empt = {}
-                for (let i = 0 ; i< result.length ; i++){
-                    let category = result[i].category
-                    if(!empt[category]){
-                        empt[category] = 1
-                    }else {
-                        empt[category]++
-                    }
-                }
                 console.log('===================get the data=========')
+
+                console.log('=======here=====')
+                Product.coba()
+                let empt =Product.getNameOfproduct(result)
                 console.log(empt)
                 let labels= []
-                console.log('=======here=====')
                 for(let key in empt){
                     console.log('=======here=====')
                     console.log(key)

@@ -22,6 +22,23 @@ module.exports = (sequelize, DataTypes) => {
        return `Rp ${currency}`
     }
 
+    static coba(){
+      console.log('ini static')
+    }
+    static getNameOfproduct(result){
+      console.log('=========masuk di static=======')
+      let empt = {}
+      for (let i = 0 ; i< result.length ; i++){
+          let category = result[i].category
+          if(!empt[category]){
+              empt[category] = 1
+          }else {
+              empt[category]++
+          }
+      }
+      console.log(result)
+      return empt
+    }
   };
   Product.init({
     name: DataTypes.STRING,
