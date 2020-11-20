@@ -152,10 +152,16 @@ class CustomerController {
     }
 
     static editData(req, res) {
+        let error = null ;
+        if(req.query.error){
+            console.log('================REGIS FORM==============')
+            console.log(req.query.error)
+            error = JSON.parse(req.query.error)
+        }
         const id = req.params.id
         Customer.findByPk(id)
         .then (result =>{
-            res.render("editcustomer" ,{result})
+            res.render("editcustomer" ,{result,error})
             // res.send(result)
         }).catch(err =>{
             res.send(err)
@@ -182,7 +188,15 @@ class CustomerController {
           res.redirect('/')
          })
         .catch(err=>{
-            res.send(err)
+            let error = err.message.split('\n')
+            error = error.map(element =>{
+                return element.split(':')[1].split(',')[0]
+            })
+            error = JSON.stringify(error)
+            console.log('=======================error edited==========')
+            res.redirect(`/profile/edit/${id}?error=${error}`)
+
+            // res.send(err)
             })
     }
 

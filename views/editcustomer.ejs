@@ -1,5 +1,10 @@
 <%- include('partial/head') %>
 
+<% if(error){ %>
+    <% error.forEach(err=>{ %>
+        <p style="color: red;"><%= err %> </p>
+    <% }) %> 
+<% } %> 
 <form action="/profile/edit/<%= result.id %>" method="post"> 
 
     <h4>Name</h4>
