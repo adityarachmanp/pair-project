@@ -1,0 +1,49 @@
+<%- include('partial/head')  %>
+
+
+<div class="container">
+    <div class="jumbotron">
+      <h1>Selamat Datang <%= name  %> </h1>
+      <p>Kami hadir untuk memenuhi kebutuhan harian anda</p>
+    </div>
+
+  </div>
+<% if(logout) { %> 
+   <h1>Halaman Ini Hanya bisa di akses Oleh Pengguna</h1>
+<% } %> 
+<div>
+     
+<% if(prod) { %>    
+
+
+    <%- include('partial/script')  %> 
+    <button><a href="/product/add">tambahkan barang</a></button><br>
+    <br>
+    <br>
+    <!-- //table -->
+    <table border="1px">
+    
+        <% prod.forEach(element => { %>
+    
+            <tr>
+                <td><img src="<%= element.picture  %> " alt="<%= element.name  %> " style="width:104px;height:142px;"></td>
+                <td>
+                    Nama product : <%= element.name  %> <br>
+                    Harga: <%= element.changePrice(element.price)  %> <br>
+                    Category : <%= element.category %>  <br><br>
+                    <button type="button"><a href="/addCart/<%= element.id  %> "> Tambahkan Ke Keranjang</a> </button>
+                    <a href="/product/<%= element.id %>"> info lebih lanjut</a>
+                
+                </td>
+            </tr>
+            
+       <%  }); %> 
+    
+    </table>
+    
+    </div>
+
+<% } %> 
+
+
+<%- include('partial/foot')  %> 
